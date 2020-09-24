@@ -6,17 +6,25 @@ struct Pos
 } s,p[110];
 int len = 0;
 int stk[110];
+bool cmp(Pos& a, Pos& b)
+{
+    if (a.y != b.y) return a.y < b.y;
+    else return a.x < b.x;
+}
 bool cmp_ang(Pos& a, Pos& b)
 {
     if (a.x == s.x && a.y == s.y) return true;
-    else if (a.x-s.x == 0 && b.x-s.x == 0) return a.y < b.y;
-    else return (double(a.y) - s.y) * (b.x - s.x) - (double(b.y) - s.y) * (a.x-s.x);
+    else if (b.x == s.x && b.y == s.y) return false;
+    else if (a.x-s.x == 0 && b.x-s.x == 0) return a.y > b.y;
+    else return (double(a.y) - s.y) * (b.x - s.x) < (double(b.y) - s.y) * (a.x-s.x);
 }
 bool on_right(Pos& a, Pos& b, Pos& c)
 {
-    int u = b.x - a.x;
-    int v = b.y - a.y;
-    return v * c.x - u * c.y;
+    int u1 = b.x - a.x;
+    int v1 = b.y - a.y;
+    int u2 = c.x - a.x;
+    int v2 = c.y - a.y;
+    return v1 * u2 - u1 * v2 >= 0;
 }
 int main()
 {
@@ -27,17 +35,15 @@ int main()
         int n;
         cin >> n;
         len = 0;
-        s.x = s.y = 0x7fffffff;
+        s.x = 0;
+        s.y = 0x7fffffff;
         for (int i = 0; i < n; i++)
         {
             cin >> p[i].x;
             cin >> p[i].y;
-            if (p[i].x < s.x && p[i].y < s.y)
-            {
-                s.x = p[i].x;
-                s.y = p[i].y;
-            }
         }
+        sort(p, p+n, cmp);
+        s = p[0];
         sort(p, p+n, cmp_ang);
         for (int i = 1; i < n; i++)
         {
@@ -49,22 +55,22 @@ int main()
             }
         }
 
-        for (int i = 0; i <= len; i++)
-        {
-            cout<<p[i].x<<" "<<p[i].y<<" ";
-        }
-
         stk[0] = 0;
         stk[1] = 1;
-        stk[2] = 2;
-        int top = 2;
-        for (int i = 3; i<=len; i++)
+        int top = 1;
+        for (int i = 2; i<=len; i++)
         {
-            while ()
+            while (top >= 1 && on_right(p[stk[top-1]], p[stk[top]], p[i]))
             {
-                /* code */
+                --top;
             }
+            stk[++top] = i;
 
+        }
+        cout<<"case "<<i+1<<":"<<endl;
+        for (int i = 0; i<=top; i++)
+        {
+            cout<<p[stk[i]].x<<" "<<p[stk[i]].y<<endl;
         }
 
     }
