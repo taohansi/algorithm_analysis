@@ -35,8 +35,6 @@ int main()
         int n;
         cin >> n;
         len = 0;
-        s.x = 0;
-        s.y = 0x7fffffff;
         for (int i = 0; i < n; i++)
         {
             cin >> p[i].x;
@@ -50,8 +48,7 @@ int main()
             if (p[i].x != p[len].x || p[i].y != p[len].y)
             {
                 ++len;
-                p[len].x = p[i].x;
-                p[len].y = p[i].y;
+                p[len] = p[i];
             }
         }
 
