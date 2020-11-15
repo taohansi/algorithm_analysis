@@ -11,11 +11,6 @@ struct skyline
 } sk[100020], temp[100020];
 int N;
 
-bool cmp(buliding &x, buliding &y)
-{
-    return x.a < y.a;
-}
-
 int zip() {
     int len = 2 * N;
     int j = 0;
@@ -80,7 +75,6 @@ int main()
     {
         cin >> bu[i].a >> bu[i].b >> bu[i].h;
     }
-    sort(bu, bu + N, cmp);
     get_skyline(0, N - 1);
     int len = zip();
     for (int i = 0; i < len; i++)
