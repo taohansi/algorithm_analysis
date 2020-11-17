@@ -13,7 +13,7 @@ int main() {
         {
             cin >> s[i] >> v[i];
         }
-        memset(dp, 0xF7F7F7F7, sizeof(int) * 510 * c);
+        memset(dp, 0xF7F7F7F7, sizeof(int) * 510 * c); // use 0xf7 is enough, it will cut the last byte of the int
         for (int j = 0; j <= n; j++)
             dp[0][j] = 0;
         
