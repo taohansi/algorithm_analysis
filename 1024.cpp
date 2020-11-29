@@ -36,7 +36,7 @@ int main () {
         {
             for (int j = 0; j <= n; j++)
             {
-                dp[i][j] = 1e256;
+                dp[i][j] = 1e256; // 注意初始化
                 // if (i == j+1)
                 //     dp[i][j] = 0;
             }
